@@ -1,0 +1,76 @@
+Crypto background
+	hash functions
+	digital signatures
+	... and applications
+Intro to cryptocurrencies
+	basic digital cash
+***************************************
+****************************************
+Hash function:
+     mathematical function which takes any string as input.
+     fixed-size output (we'll use 256 b)
+     efficiently computable
+
+Security properties
+	 Collision-free
+	 hiding
+	puzzle-friendly
+****************************************
+****************************************
+HASH PROPERTY 1: COLLISION FREE
+     nobody can find x and y such that
+     	    x!=y and H(x)=H(y)
+
+HOW TO FIND A COLLISION
+    2^130 randomly chosen inputs
+    99.8% chance that two of then will collide
+This works, but it takes too long to happen. Million of years.
+
+APPLICATION : HASH AS MESSAGE DIGEST
+    If we know H(x) = H(y)
+       then we can assume x=y
+    To recognize a file that we saw before, just remember its hash.
+    Usefull because the hash is small
+
+****************************************
+****************************************
+HASH PROPERTY 2: HIDING
+     We want something like "Given H(x) is infeasible to find x"
+
+     HIDING PROPERTY:
+     If "r" is chosen from a probability distribution that has high min-entropy
+     ,when given H(r | x) it is infeasible to find x.
+
+     High min-entropy ---> the distribution is "very spread out" so that no 
+     particular value is chosen with more than negligible probability.
+     
+     Basically -> A hash function x with r, is impossible to find x from H(x)
+
+
+     APPLICATION: COMMITMENT
+     We want to "seal a value in an envelope", and "open the envelope" later.
+     Commit to a value, reveal it later.
+
+
+     COMMITMENT API looks like this:
+     		(com, key) := commit(msg)
+		match := verify(com, key, msg)
+
+		to seal msg in envelope:
+		(com, key) := commit(msg) -- then publish "com"
+
+		To open envelope:
+		publish "key, msg"
+		anyone can use verify() to check validity
+
+		commit(msg) := (H(key | msg), key
+			    ; key -> random 256-bit value 
+		verify(com, key, msg) := (H(key | msg) == com)
+
+		Security properties:
+			 Hiding : Given H(key | msg), infeasible to find msg
+			 Binding: Infeasible to find msg!=msg' such that
+			 	  H(key |msg) == H(key | msg')
+ 
+
+
