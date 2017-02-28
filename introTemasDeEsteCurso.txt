@@ -71,6 +71,26 @@ HASH PROPERTY 2: HIDING
 			 Hiding : Given H(key | msg), infeasible to find msg
 			 Binding: Infeasible to find msg!=msg' such that
 			 	  H(key |msg) == H(key | msg')
- 
+****************************************
+****************************************
+HASH PROPERTY 3: PUZZLE-FRIENDLY 
+     Puzzle-friendly:
+	For every possible output value y, if "k" is chosen from a 
+	distribution with high min-entropy,
+	then it is infeasible to find "x" such that H(k | x) = y
+
+     Aplication: search puzzle
+     		 Given a "puzzle ID" id(from high min-entropy distrib.),
+		       and a target set Y.
+		 Try to find a "solution" y such that
+		     H(id | x) E y
+
+		 Puzzle-friendly property implies that no solving strategy is
+		 much better than trying random values of x.
+
+****************************************
+****************************************
+What hash function are we going to use through the course???
+     The one that bitcoin uses ---> SHA 256
 
 
